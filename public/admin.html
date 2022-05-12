@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <title>Lessons</title>
+    <style>
+      nav .navbar-nav {
+        margin-left: auto;
+      }
+
+      section h2 {
+        font-size: 40px;
+        margin: 40px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="/">Client</a>
+            <a class="nav-link active" href="#">Admin</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2>Add new lesson</h2>
+            <form class="addForm" method="post" action="/add">
+              <div class="mb-3">
+                <label for="exampleInputName" class="form-label">Name</label>
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control"
+                  id="exampleInputName"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputUrl" class="form-label">Url</label>
+                <input
+                  type="text"
+                  name="url"
+                  class="form-control"
+                  id="exampleInputUrl"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputCat" class="form-label">Category</label>
+                <select
+                  id="exampleInputCat"
+                  name="cat"
+                  class="form-select"
+                  aria-label="Default select example"
+                  required
+                >
+                  <option selected value="web">Web dasturlash</option>
+                  <option value="android">Android dasturlash</option>
+                  <option value="ios">iOS dasturlash</option>
+                  <option value="smm">Smm</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Add lesson</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const addForm = document.querySelectorAll(".addForm");
+
+      addForm[0].addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        fetch("/add", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            title: addForm[0][0].value,
+            url: addForm[0][1].value,
+            cat: addForm[0][2].value,
+          }),
+        })
+          .then((res) => {
+            if (res.status < 400) {
+              return res.json();
+            } else {
+              return new Error("Error req on status " + res.status);
+            }
+          })
+          .then((res) => {
+            console.log(res);
+            alert("Yaratildi");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    </script>
+  </body>
+</html>

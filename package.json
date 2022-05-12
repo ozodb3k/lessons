@@ -1,0 +1,16 @@
+{
+  "name": "lessons",
+  "version": "1.0.0",
+  "description": "Lessons app for homework",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Ozodbek Xayitboyev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "@2.0.16"
+  }
+}
